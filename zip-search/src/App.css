@@ -7,9 +7,13 @@
 
 .zip-search {
   padding-top: 2%;
-  text-align: center;
 }
 
-.results {
-  text-align: center;
+.container {
+  display: grid;
+  justify-content: center;
+}
+
+.border {
+  grid-area: border;
 }

@@ -44,6 +44,7 @@ class App extends Component {
         <div className="App-header">
           <h2>Zip Code Search</h2>
         </div>
+        <div className="container">
         <ZipSearchField onChange={(e) => this.zipChanged(e)}/>
         <div className="results">
           {/* {this.state.cities && this.state.cities.map(item => {
@@ -65,6 +66,7 @@ class App extends Component {
               </div>
             )
           }
+          </div>
         </div>
       </div>
     );

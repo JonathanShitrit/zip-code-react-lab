@@ -1,0 +1,23 @@
+.App-header {
+  background-color: #222;
+  padding: 20px;
+  color: white;
+  text-align: center;
+}
+
+.city-search {
+  padding-top: 2%;
+}
+
+.container {
+  display: grid;
+  justify-content: center;
+}
+
+.card {
+  margin-top: 5%;
+}
+
+.card-header {
+  background-color: lightgrey;
+}

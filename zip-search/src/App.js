@@ -1,10 +1,26 @@
 import React, { Component } from 'react';
+import Card from '@material-ui/core/Card';
+import CardContent from '@material-ui/core/CardContent';
+import CardHeader from '@material-ui/core/CardHeader';
 import './App.css';
 
 
 function City(props) {
   return (
-    <div>This is the {props.item.City} component</div>
+    <Card className="card">
+      <CardHeader
+        className="card-header"
+        subheader={props.item.LocationText}
+      />
+      <CardContent>
+          <ul>
+            <li>State: {props.item.State}</li>
+            <li>Location: ({props.item.Lat}, {props.item.Long})</li>
+            <li>Population: (estimated) {props.item.EstimatedPopulation}</li>
+            <li>Total Wages: {props.item.TotalWages}</li>
+          </ul>
+      </CardContent>
+    </Card>
   );
 }
 
@@ -67,6 +83,7 @@ class App extends Component {
             )
           }
           </div>
+          <br />
         </div>
       </div>
     );

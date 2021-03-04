@@ -1,25 +1,13 @@
 import React, { Component } from 'react';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
-import CardHeader from '@material-ui/core/CardHeader';
 import './App.css';
-
 
 function City({zip}) {
   return (
     <Card className="card">
-      {/* <CardHeader
-        className="card-header"
-        subheader={props.item.LocationText}
-      /> */}
       <CardContent>
           {zip}
-          {/* <ul>
-            <li>State: {props.item.State}</li>
-            <li>Location: ({props.item.Lat}, {props.item.Long})</li>
-            <li>Population: (estimated) {props.item.EstimatedPopulation}</li>
-            <li>Total Wages: {props.item.TotalWages}</li>
-          </ul> */}
       </CardContent>
     </Card>
   );
@@ -34,6 +22,16 @@ function CitySearchField({onChange}) {
   );
 }
 
+// const State = ({state}) => {
+//   return ( 
+//     <Card className="card">
+//       <CardContent>
+//           {state}
+//       </CardContent>
+//     </Card>
+//   );
+// }
+ 
 
 class App extends Component {
   constructor(props) {
@@ -41,19 +39,46 @@ class App extends Component {
     this.state = {
       city: "",
       zipcodes: [],
+      // states: new Set()
     }
   }
 
-  cityChanged(e) {
+  cityInputChanged(e) {
     this.setState({
-      city: e.target.value
+      city: e.target.value,
+      // states: new Set(),
+      zipcodes: []
     }, () => {
-      fetch(`http://ctp-zip-api.herokuapp.com/city/${this.state.city.toUpperCase()}`)
-      .then(response => response.json())
-      .then(zipcodes => this.setState({zipcodes}))
-      .catch(error => console.log(error))
+      this.getCitysFromApi()
     })
   }
+
+  getCitysFromApi() {
+    fetch(`http://ctp-zip-api.herokuapp.com/city/${this.state.city.toUpperCase()}`)
+      .then(response => response.json())
+      .then(zipcodes => 
+        this.setState({
+          zipcodes
+        }, () => {
+            // this.getStatesFromZipcodes()
+        })
+      )
+      .catch(error => console.log(error))
+  }
+
+  // getStatesFromZipcodes() {
+  //   this.state.zipcodes.map(zip => {
+  //     fetch(`http://ctp-zip-api.herokuapp.com/zip/${zip}`)
+  //     .then(response => response.json())
+  //     .then(json => {
+  //       console.log(json)
+  //       // json.map(item => {
+  //         // this.setState({states: this.state.states.add(item.State)})
+  //       // })
+  //     })
+  //     .catch(error => console.log(error))
+  //   })
+  // }
 
   render() {
     return (
@@ -62,7 +87,7 @@ class App extends Component {
           <h2>City Code Search</h2>
         </div>
         <div className="container">
-        <CitySearchField onChange={(e) => this.cityChanged(e)}/>
+        <CitySearchField onChange={(e) => this.cityInputChanged(e)}/>
         <div className="results">
 
           {this.state.zipcodes && this.state.zipcodes.length > 0 ? 
@@ -78,7 +103,22 @@ class App extends Component {
                 No Results
               </div>
             )
-            }
+          }
+
+          {/* {this.state.states && this.state.states.size > 0 ? 
+            (
+              this.state.states.forEach(state => {
+                return (
+                  <State key={state} state={state} />
+                )  
+              })
+            ) : (
+              <div>
+                No Results
+              </div>
+            )
+          } */}
+          
           </div>
           <br />
         </div>
